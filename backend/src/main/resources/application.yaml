@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/mi_hogar_inteligente_db
+    username: root
+    password: Terres1009.
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
