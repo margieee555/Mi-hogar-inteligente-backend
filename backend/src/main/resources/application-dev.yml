@@ -1,0 +1,4 @@
+logging:
+  level:
+    com.hogar360: DEBUG
+    org.springframework.security: DEBUG

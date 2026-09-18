@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: backend
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/mi_hogar_inteligente_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: Terres1009.
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate   # el esquema lo maneja Flyway, no Hibernate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: false
+
+server:
+  port: 8080
+
+security:
+  jwt:
+    secret: cambia-esta-clave-super-secreta-en-produccion-hogar360
+    expiration-ms: 86400000   # 24 horas
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
