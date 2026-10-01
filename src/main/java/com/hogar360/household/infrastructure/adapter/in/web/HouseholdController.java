@@ -1,8 +1,11 @@
 package com.hogar360.household.infrastructure.adapter.in.web;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +21,10 @@ import com.hogar360.household.domain.port.in.GetMyHouseholdUseCase;
 import com.hogar360.household.domain.port.in.InviteMemberUseCase;
 import com.hogar360.household.infrastructure.adapter.in.web.dto.CreateHouseholdRequest;
 import com.hogar360.household.infrastructure.adapter.in.web.dto.HouseholdResponse;
+import com.hogar360.household.infrastructure.adapter.in.web.dto.InviteMemberRequest;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/households")
