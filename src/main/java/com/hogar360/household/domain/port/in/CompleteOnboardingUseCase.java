@@ -1,5 +1,7 @@
 package com.hogar360.household.domain.port.in;
 
-public class CompleteOnboardingUseCase {
-    
+import com.hogar360.household.domain.model.Household;
+
+public interface CompleteOnboardingUseCase {
+    Household complete(Long householdId, String ownerEmail);
 }

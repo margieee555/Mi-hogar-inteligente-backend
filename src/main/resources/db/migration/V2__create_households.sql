@@ -1,6 +1,6 @@
 CREATE TABLE households (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    owner_user_id BIGINT NOT NULL,
+    owner_user_id BIGINT NOT NULL UNIQUE,
     name VARCHAR(150) NOT NULL,
     type VARCHAR(50) NOT NULL,
     resident_count INT NOT NULL DEFAULT 1,
@@ -16,6 +16,8 @@ CREATE TABLE rooms (
     CONSTRAINT fk_room_household FOREIGN KEY (household_id) REFERENCES households(id) ON DELETE CASCADE
 );
 
+CREATE INDEX idx_rooms_household ON rooms (household_id);
+
 CREATE TABLE invitations (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     household_id BIGINT NOT NULL,
@@ -24,3 +26,5 @@ CREATE TABLE invitations (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_invitation_household FOREIGN KEY (household_id) REFERENCES households(id) ON DELETE CASCADE
 );
+
+CREATE INDEX idx_invitations_household ON invitations (household_id);

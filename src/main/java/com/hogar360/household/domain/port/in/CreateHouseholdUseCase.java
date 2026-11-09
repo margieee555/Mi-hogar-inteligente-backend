@@ -1,5 +1,8 @@
 package com.hogar360.household.domain.port.in;
 
-public class CreateHouseholdUseCase {
-    
+import com.hogar360.household.application.dto.CreateHouseholdCommand;
+import com.hogar360.household.domain.model.Household;
+
+public interface CreateHouseholdUseCase {
+    Household create(CreateHouseholdCommand command);
 }

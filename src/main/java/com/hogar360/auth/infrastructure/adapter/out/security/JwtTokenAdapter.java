@@ -4,12 +4,12 @@ import com.hogar360.auth.domain.model.User;
 import com.hogar360.auth.domain.port.out.TokenProviderPort;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 /**
@@ -25,7 +25,7 @@ public class JwtTokenAdapter implements TokenProviderPort {
     public JwtTokenAdapter(
             @Value("${security.jwt.secret}") String secret,
             @Value("${security.jwt.expiration-ms}") long expirationMillis) {
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
+        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMillis = expirationMillis;
     }
 
@@ -40,7 +40,7 @@ public class JwtTokenAdapter implements TokenProviderPort {
                 .claim("role", user.getRole().name())
                 .issuedAt(now)
                 .expiration(expiry)
-                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .signWith(secretKey, Jwts.SIG.HS256)
                 .compact();
     }
 

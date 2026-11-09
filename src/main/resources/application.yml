@@ -2,20 +2,35 @@ spring:
   application:
     name: backend
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/mi_hogar_inteligente_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
-    password: Terres1009.
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  config:
+    import: optional:file:./.env[.properties],optional:file:./backend/.env[.properties]
 
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:mi_hogar_inteligente_db}?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  messages:
+    basename: messages
+    fallback-to-system-locale: false
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.connectiontimeout: 5000
+      mail.smtp.timeout: 5000
+      mail.smtp.writetimeout: 5000
   jpa:
     hibernate:
-      ddl-auto: validate   # el esquema lo maneja Flyway, no Hibernate
-    show-sql: true
+      ddl-auto: validate
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
 
   flyway:
     enabled: true
@@ -25,11 +40,25 @@ spring:
 server:
   port: 8080
 
+google:
+  client-id: ${GOOGLE_CLIENT_ID:}
+
 security:
   jwt:
-    secret: cambia-esta-clave-super-secreta-en-produccion-hogar360
-    expiration-ms: 86400000   # 24 horas
+    secret: ${JWT_SECRET}
+    expiration-ms: ${JWT_EXPIRATION_MS:900000}
 
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200}
+  security:
+    refresh-token-days: ${REFRESH_TOKEN_DAYS:7}
+    cookie-secure: ${COOKIE_SECURE:false}
+  frontend-url: ${FRONTEND_URL:http://localhost:4200}
+  mail:
+    enabled: ${MAIL_ENABLED:false}
+    from: ${MAIL_FROM:${MAIL_USERNAME:}}
+    
 springdoc:
   swagger-ui:
     path: /swagger-ui.html

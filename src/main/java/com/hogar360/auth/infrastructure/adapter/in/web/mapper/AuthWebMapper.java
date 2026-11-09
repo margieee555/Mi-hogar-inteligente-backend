@@ -5,6 +5,8 @@ import com.hogar360.auth.application.dto.RegisterUserCommand;
 import com.hogar360.auth.domain.exception.UserAlreadyExistsException;
 import com.hogar360.auth.infrastructure.adapter.in.web.dto.LoginRequest;
 import com.hogar360.auth.infrastructure.adapter.in.web.dto.RegisterRequest;
+import com.hogar360.shared.exception.DomainValidationException;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,7 +18,7 @@ public class AuthWebMapper {
 
     public RegisterUserCommand toCommand(RegisterRequest request) {
         if (!request.password().equals(request.confirmPassword())) {
-            throw new IllegalArgumentException("Las contraseñas no coinciden");
+            throw new DomainValidationException("error.auth.passwordMismatch", "Las contraseñas no coinciden");
         }
         return new RegisterUserCommand(request.name(), request.email(), request.password());
     }

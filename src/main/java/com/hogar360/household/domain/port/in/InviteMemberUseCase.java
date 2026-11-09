@@ -1,5 +1,7 @@
 package com.hogar360.household.domain.port.in;
 
-public class InviteMemberUseCase {
-    
+import com.hogar360.household.application.dto.InviteMemberCommand;
+
+public interface InviteMemberUseCase {
+    void invite(InviteMemberCommand command);
 }

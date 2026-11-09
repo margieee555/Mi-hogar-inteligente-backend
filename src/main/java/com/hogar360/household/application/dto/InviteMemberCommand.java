@@ -1,5 +1,4 @@
 package com.hogar360.household.application.dto;
 
-public class InviteMemberCommand {
-    
+public record InviteMemberCommand(Long householdId, String ownerEmail, String inviteeEmail) {
 }

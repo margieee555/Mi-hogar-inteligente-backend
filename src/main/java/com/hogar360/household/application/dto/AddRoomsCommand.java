@@ -1,5 +1,6 @@
 package com.hogar360.household.application.dto;
 
-public class AddRoomsCommand {
-    
+import java.util.List;
+
+public record AddRoomsCommand(Long householdId, String ownerEmail, List<String> rooms) {
 }
